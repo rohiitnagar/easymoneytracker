@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="topbar">
+<header class="navbar navbar-expand-lg navbar-dark sticky-top bg-primary shadow-sm">
+    <div class="container-fluid">
+        <!-- Logo & App Name - Always visible -->
+        <a class="navbar-brand d-flex align-items-center gap-2 me-auto" href="#">
+            <i class="fas fa-coins fa-lg"></i>
+            <span class="fw-bold fs-5 d-none d-md-inline">App Name</span>
+            <span class="d-md-none">App</span> <!-- Short mobile version -->
+        </a>
+
+        <!-- Mobile hamburger - HIDDEN ON MOBILE (no collapse menu) -->
+        <button class="navbar-toggler d-lg-none d-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- User menu - Always visible, shrinks on mobile -->
+        <div class="navbar-nav ms-auto">
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle d-flex align-items-center gap-1 gap-md-2 p-2" href="#" role="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-user-circle fa-lg"></i>
+                    <span class="d-none d-lg-inline">Admin</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+</html>

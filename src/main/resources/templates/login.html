@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EasyMoneyTracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --glass-bg: rgba(255,255,255,0.1); --glass-border: rgba(255,255,255,0.25); }
+        body {
+            height: 100vh;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            overflow: hidden;
+        }
+        body::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+            radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent);
+            background-repeat: repeat; background-size: 200px 100px;
+            animation: float 20s linear infinite; opacity: 0.1;
+        }
+        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-20px); } }
+        .login-card {
+            background: var(--glass-bg); backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border); border-radius: 32px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3); animation: slideUp 0.8s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .input-glow {
+            background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 16px; transition: all 0.3s ease; backdrop-filter: blur(10px);
+        }
+        .input-glow:focus {
+            border-color: rgba(102,126,234,0.8); box-shadow: 0 0 0 4px rgba(102,126,234,0.2);
+            transform: scale(1.02); background: rgba(255,255,255,0.12);
+        }
+        .btn-neon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none; border-radius: 20px; font-weight: 700; font-size: 1.1rem;
+        }
+        .btn-neon:hover {
+            transform: translateY(-3px) scale(1.05); box-shadow: 0 20px 40px rgba(102,126,234,0.5);
+        }
+    </style>
+</head>
+<body>
+<div class="d-flex align-items-center justify-content-center min-vh-100 p-4">
+    <div class="card login-card p-4 p-md-5 p-lg-6 col-12 col-md-8 col-lg-5 col-xl-4">
+        <!-- Logo -->
+        <div class="text-center mb-5">
+            <i class="fas fa-coins fa-4x text-primary mb-3" style="text-shadow: 0 0 20px rgba(102,126,234,0.8);"></i>
+            <h1 class="h2 fw-bold text-white mb-2" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                EasyMoneyTracker
+            </h1>
+            <p class="text-white-50 fs-6 fw-medium mb-0">Next-Gen Admin Portal</p>
+        </div>
+
+        <!-- ✅ Spring Security Native Form - NO th:field bindings! -->
+        <form th:action="@{/login}" method="post">
+            <!-- Error handling (Spring Security native) -->
+            <div th:if="${param.error}" class="alert alert-danger mb-4 animate__animated animate__shakeX">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Access Denied!</strong> Invalid credentials.
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success mb-4">
+                <i class="fas fa-check-circle me-2"></i> Logged out successfully!
+            </div>
+
+            <!-- Email (Spring Security expects 'username') -->
+            <div class="mb-4">
+                <label class="form-label fw-bold text-white mb-3 fs-6">Email Address</label>
+                <div class="input-group input-group-lg">
+                        <span class="input-group-text input-glow border-end-0 pe-0 bg-transparent text-white-50">
+                            <i class="fas fa-envelope fs-5"></i>
+                        </span>
+                    <input type="email" name="username"
+                           class="form-control form-control-lg input-glow border-start-0 ps-4 text-white fw-medium"
+                           placeholder="enter your email" required autofocus>
+                </div>
+            </div>
+
+            <!-- Password (Spring Security expects 'password') -->
+            <div class="mb-5">
+                <label class="form-label fw-bold text-white mb-3 fs-6">Master Password</label>
+                <div class="input-group input-group-lg">
+                        <span class="input-group-text input-glow border-end-0 pe-0 bg-transparent text-white-50">
+                            <i class="fas fa-lock fs-5"></i>
+                        </span>
+                    <input type="password" name="password"
+                           class="form-control form-control-lg input-glow border-start-0 ps-4 text-white fw-medium"
+                           placeholder="••••••••••••" required>
+                </div>
+            </div>
+
+            <!-- Neon Button -->
+            <button type="submit" class="btn btn-neon btn-lg w-100 text-white py-4 mb-4">
+                <i class="fas fa-rocket-launch me-3"></i> Launch Dashboard
+            </button>
+        </form>
+
+        <!-- Footer -->
+        <div class="text-center pt-4 border-top" style="border-image: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent) 1;">
+            <small class="text-white-50 fw-medium">🔐 Secured with Spring Security | v2.0.1</small>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
